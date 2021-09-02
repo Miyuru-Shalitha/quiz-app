@@ -1,9 +1,14 @@
+const PAGE_ANIMATION_IN = "page-animation-in 0.51s ease-out";
 const PAGE_ANIMATION_OUT = "page-animation-out 0.5s ease-in forwards";
 
 const allQuizes = [];
 let currentQuizIndex = 2;
 let isCorrectAnswer = false;
 let currentQuiz = null;
+
+let cardDiv = null;
+let quizSpan = null;
+let answersContainerDiv = null;
 
 // Get the json data from the API.
 fetch("https://opentdb.com/api.php?amount=10&category=18&type=multiple")
@@ -39,7 +44,7 @@ function getQuiz(result) {
 }
 
 function createCard(currentQuiz) {
-  const cardDiv = document.createElement("div");
+  cardDiv = document.createElement("div");
   cardDiv.id = "card";
   document.body.appendChild(cardDiv);
 
@@ -52,14 +57,14 @@ function createQuizContainerDiv(cardDiv, questionText) {
   quizContainerDiv.className = "quiz-container";
   cardDiv.appendChild(quizContainerDiv);
 
-  const quizSpan = document.createElement("Span");
+  quizSpan = document.createElement("Span");
   quizSpan.id = "quiz";
   quizSpan.innerHTML = questionText;
   quizContainerDiv.appendChild(quizSpan);
 }
 
 function createAnswersContainerDiv(cardDiv, allAnswersArray) {
-  const answersContainerDiv = document.createElement("div");
+  answersContainerDiv = document.createElement("div");
   answersContainerDiv.className = "answers-container";
   cardDiv.appendChild(answersContainerDiv);
 
@@ -77,7 +82,7 @@ function createAnswerDiv(answersContainerDiv, answer, correctAnswer) {
   answersContainerDiv.appendChild(answerDiv);
 
   const answerSpan = document.createElement("span");
-  answerSpan.innerText = answer;
+  answerSpan.innerHTML = answer;
   answerDiv.appendChild(answerSpan);
 
   answerDiv.onclick = () => {
@@ -87,6 +92,8 @@ function createAnswerDiv(answersContainerDiv, answer, correctAnswer) {
       isCorrectAnswer = false;
     }
   };
+
+  return answerDiv;
 }
 
 function createNextButton() {
@@ -97,11 +104,26 @@ function createNextButton() {
 
   nextButton.onclick = () => {
     console.log(isCorrectAnswer);
+
     const cardDiv = document.querySelector("#card");
     cardDiv.style.animation = PAGE_ANIMATION_OUT;
     setTimeout(() => {
-      document.body.removeChild(cardDiv);
-      createCard(currentQuiz);
+      if (currentQuizIndex < allQuizes.length - 1) {
+        // Change the question to next one.
+        currentQuizIndex++;
+        let newQuiz = allQuizes[currentQuizIndex];
+
+        // Update the question text.
+        quizSpan.innerHTML = newQuiz.question;
+
+        // Remove older answersContainer and add new one.
+        cardDiv.removeChild(answersContainerDiv);
+        createAnswersContainerDiv(cardDiv, newQuiz.allAnswers);
+
+        cardDiv.style.animation = PAGE_ANIMATION_IN;
+      } else {
+        alert("Finish!");
+      }
     }, 600);
   };
 }
