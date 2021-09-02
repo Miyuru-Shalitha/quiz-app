@@ -12,8 +12,8 @@ body {
   align-items: center;
 }
 
-.page {
-  width: 40%;
+.card {
+  max-width: 45rem;
   padding: 1rem;
   overflow: hidden;
   border-radius: 1rem;
@@ -46,7 +46,7 @@ body {
   box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem #aaaaaa;
 }
 
-.quiz {
+#quiz {
   display: inline-block;
   margin: 1rem;
   font-size: 1.5rem;
