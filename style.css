@@ -8,6 +8,7 @@ body {
   height: 100vh;
   background-color: #fff;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -41,7 +42,7 @@ body {
 } */
 
 .quiz-container {
-  background-color: aqua;
+  background-color: #00ffff;
   border-radius: 1rem;
   box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem #aaaaaa;
 }
@@ -51,10 +52,12 @@ body {
   margin: 1rem;
   font-size: 1.5rem;
   text-align: center;
+  color: #003296;
 }
 
 .answer {
   background-color: #ffd000;
+  color: #704300;
   margin: 1rem;
   padding: 1rem;
   border-radius: 1rem;
@@ -69,4 +72,27 @@ body {
 
 .answer:active {
   background-color: #ffe8c7;
+}
+
+#next {
+  margin-top: 2rem;
+  width: 5rem;
+  height: 2rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: #b1fc03;
+  color: #009e3a;
+  cursor: pointer;
+  box-shadow: 0.1rem 0.1rem 0.7rem 0.3rem #aaaaaa;
+}
+
+#next:hover {
+  background-color: #009e3a;
+  color: #b1fc03;
+}
+
+#next:active {
+  background-color: #b3ffcf;
+  color: #19522e;
+  box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem #aaaaaa;
 }
