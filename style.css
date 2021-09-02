@@ -19,10 +19,10 @@ body {
   border-radius: 1rem;
   box-shadow: 0.1rem 0.1rem 1rem 0.3rem #aaaaaa;
   position: relative;
-  animation: page-animation 1s ease-in;
+  animation: page-animation-in 0.51s ease-in-out;
 }
 
-@keyframes page-animation {
+@keyframes page-animation-in {
   from {
     transform: translateY(-150%);
   }
@@ -30,6 +30,15 @@ body {
     transform: translateY(0%);
   }
 }
+
+/* @keyframes page-animation-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(150%);
+  }
+} */
 
 .quiz-container {
   background-color: aqua;
