@@ -1,6 +1,9 @@
-const allQuizes = [];
+const PAGE_ANIMATION_OUT = "page-animation-out 0.5s ease-in forwards";
 
+const allQuizes = [];
 let currentQuizIndex = 2;
+let isCorrectAnswer = false;
+let currentQuiz = null;
 
 // Get the json data from the API.
 fetch("https://opentdb.com/api.php?amount=10&category=18&type=multiple")
@@ -11,7 +14,7 @@ fetch("https://opentdb.com/api.php?amount=10&category=18&type=multiple")
       allQuizes.push(quiz);
     });
 
-    const currentQuiz = allQuizes[currentQuizIndex];
+    currentQuiz = allQuizes[currentQuizIndex];
 
     createCard(currentQuiz);
     createNextButton();
@@ -37,7 +40,7 @@ function getQuiz(result) {
 
 function createCard(currentQuiz) {
   const cardDiv = document.createElement("div");
-  cardDiv.className = "card";
+  cardDiv.id = "card";
   document.body.appendChild(cardDiv);
 
   createQuizContainerDiv(cardDiv, currentQuiz.question);
@@ -60,12 +63,15 @@ function createAnswersContainerDiv(cardDiv, allAnswersArray) {
   answersContainerDiv.className = "answers-container";
   cardDiv.appendChild(answersContainerDiv);
 
-  allAnswersArray.forEach((answer) => {
-    createAnswerDiv(answersContainerDiv, answer);
+  const correctAnswer = allAnswersArray[allAnswersArray.length - 1]; // Last answer in the allAnswersArray is the correct answer. (Before shuffled)
+  const shuffledAnswers = shuffle(allAnswersArray);
+
+  shuffledAnswers.forEach((answer) => {
+    createAnswerDiv(answersContainerDiv, answer, correctAnswer);
   });
 }
 
-function createAnswerDiv(answersContainerDiv, answer) {
+function createAnswerDiv(answersContainerDiv, answer, correctAnswer) {
   const answerDiv = document.createElement("div");
   answerDiv.className = "answer";
   answersContainerDiv.appendChild(answerDiv);
@@ -73,6 +79,14 @@ function createAnswerDiv(answersContainerDiv, answer) {
   const answerSpan = document.createElement("span");
   answerSpan.innerText = answer;
   answerDiv.appendChild(answerSpan);
+
+  answerDiv.onclick = () => {
+    if (answer === correctAnswer) {
+      isCorrectAnswer = true;
+    } else {
+      isCorrectAnswer = false;
+    }
+  };
 }
 
 function createNextButton() {
@@ -80,4 +94,36 @@ function createNextButton() {
   nextButton.id = "next";
   nextButton.innerText = "Next";
   document.body.appendChild(nextButton);
+
+  nextButton.onclick = () => {
+    console.log(isCorrectAnswer);
+    const cardDiv = document.querySelector("#card");
+    cardDiv.style.animation = PAGE_ANIMATION_OUT;
+    setTimeout(() => {
+      document.body.removeChild(cardDiv);
+      createCard(currentQuiz);
+    }, 600);
+  };
 }
+
+////////////////////////////////////////////////////////////////////
+function shuffle(array) {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+}
+////////////////////////////////////////////////////////////////////
