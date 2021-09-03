@@ -97,3 +97,56 @@ body {
   color: #19522e;
   box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem #aaaaaa;
 }
+
+.pop-up {
+  position: absolute;
+  top: 5%;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  font-weight: bold;
+  box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem #aaaaaa;
+  animation: pop-up-animation 1.5s ease-in-out forwards;
+}
+
+.correct {
+  background-color: #63ff83;
+  color: #308040;
+}
+
+.incorrect {
+  background-color: #ff4040;
+  color: #911919;
+}
+
+/* @keyframes pop-up-animation-in {
+  from {
+    transform: translateY(-250%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop-up-animation-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-250%);
+  }
+} */
+
+@keyframes pop-up-animation {
+  0% {
+    transform: translateY(-250%);
+  }
+  25% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-250%);
+  }
+}

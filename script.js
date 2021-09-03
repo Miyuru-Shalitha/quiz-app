@@ -7,6 +7,7 @@ const allQuizes = [];
 let currentQuizIndex = 2;
 let isCorrectAnswer = false;
 let currentQuiz = null;
+let score = 0;
 
 let cardDiv = null;
 let quizSpan = null;
@@ -108,7 +109,14 @@ function createNextButton() {
   document.body.appendChild(nextButton);
 
   nextButton.onclick = () => {
-    console.log(isCorrectAnswer);
+    // If selected answer is correct increase the score by 1.
+    if (isCorrectAnswer) {
+      score++;
+    }
+    // Show popupDiv.
+    createPopupDiv(isCorrectAnswer);
+    // Reset isCorrectAnswer back to false.
+    isCorrectAnswer = false;
 
     const cardDiv = document.querySelector("#card");
     cardDiv.style.animation = PAGE_ANIMATION_OUT;
@@ -127,10 +135,29 @@ function createNextButton() {
 
         cardDiv.style.animation = PAGE_ANIMATION_IN;
       } else {
-        alert("Finish!");
+        alert(score);
       }
     }, 600);
   };
+}
+
+function createPopupDiv(isCorrect) {
+  const popupDiv = document.createElement("div");
+
+  if (isCorrect) {
+    popupDiv.className = "pop-up correct";
+    popupDiv.innerText = "Correct!";
+  } else {
+    popupDiv.className = "pop-up incorrect";
+    popupDiv.innerText = "Incorrect!";
+  }
+
+  document.body.appendChild(popupDiv);
+
+  // Remove the popup after 1.5 seconds.
+  setTimeout(() => {
+    document.body.removeChild(popupDiv);
+  }, 1500);
 }
 
 ////////////////////////////////////////////////////////////////////
