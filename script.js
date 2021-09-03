@@ -2,7 +2,7 @@ const PAGE_ANIMATION_IN = "page-animation-in 0.51s ease-out";
 const PAGE_ANIMATION_OUT = "page-animation-out 0.5s ease-in forwards";
 const NEXT_BUTTON_ANIMATION = "next-button-animation 0.5s ease-out forwards";
 
-const SELECTED_ANSWER_STYLE = "background-color: #f58442; color: #fff;";
+// const SELECTED_ANSWER_STYLE = "background-color: #f58442; color: #fff;";
 
 const allQuizes = [];
 let currentQuizIndex = 0;
@@ -13,6 +13,7 @@ let score = 0;
 let cardDiv = null;
 let quizSpan = null;
 let answersContainerDiv = null;
+let answerDivs = [];
 
 // Get the json data from the API.
 fetch("https://opentdb.com/api.php?amount=10&category=18&type=multiple")
@@ -64,7 +65,9 @@ function createQuizContainerDiv(cardDiv, questionText) {
 
   quizSpan = document.createElement("Span");
   quizSpan.id = "quiz";
-  quizSpan.innerHTML = `(${currentQuizIndex + 1}/10). ${questionText}`;
+  quizSpan.innerHTML = `(${currentQuizIndex + 1}/${
+    allQuizes.length
+  }). ${questionText}`;
   quizContainerDiv.appendChild(quizSpan);
 }
 
@@ -76,9 +79,9 @@ function createAnswersContainerDiv(cardDiv, allAnswersArray) {
   const correctAnswer = allAnswersArray[allAnswersArray.length - 1]; // Last answer in the allAnswersArray is the correct answer. (Before shuffled)
   const shuffledAnswers = shuffle(allAnswersArray);
 
-  shuffledAnswers.forEach((answer) => {
-    createAnswerDiv(answersContainerDiv, answer, correctAnswer);
-  });
+  answerDivs = shuffledAnswers.map((answer) =>
+    createAnswerDiv(answersContainerDiv, answer, correctAnswer)
+  );
 }
 
 function createAnswerDiv(answersContainerDiv, answer, correctAnswer) {
@@ -97,8 +100,11 @@ function createAnswerDiv(answersContainerDiv, answer, correctAnswer) {
       isCorrectAnswer = false;
     }
 
-    // Change the background color of selected answer div.
-    answerDiv.style = SELECTED_ANSWER_STYLE;
+    // Highlight selected answerDiv.
+    answerDivs.forEach((ansDiv) => {
+      ansDiv.classList.remove("selected-answer");
+    });
+    answerDiv.classList.add("selected-answer");
   };
 
   return answerDiv;
@@ -129,7 +135,9 @@ function createNextButton() {
         let newQuiz = allQuizes[currentQuizIndex];
 
         // Update the question text.
-        quizSpan.innerHTML = newQuiz.question;
+        quizSpan.innerHTML = `(${currentQuizIndex + 1}/${allQuizes.length}). ${
+          newQuiz.question
+        }`;
 
         // Remove older answersContainer and add new one.
         cardDiv.removeChild(answersContainerDiv);

@@ -66,11 +66,18 @@ body {
   box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem #aaaaaa;
 }
 
-.answer:hover {
+.selected-answer {
+  background-color: #f58442;
+  color: #fff;
+}
+
+.answer:hover,
+.selected-answer:hover {
   background-color: #ffd08f;
 }
 
-.answer:active {
+.answer:active,
+.selected-answer:active {
   background-color: #ffe8c7;
 }
 
@@ -143,6 +150,7 @@ body {
 }
 
 .result {
+  position: absolute;
   font-weight: bold;
   animation: result-animation 1.5s ease-in-out forwards;
 }
