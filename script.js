@@ -2,8 +2,6 @@ const PAGE_ANIMATION_IN = "page-animation-in 0.51s ease-out";
 const PAGE_ANIMATION_OUT = "page-animation-out 0.5s ease-in forwards";
 const NEXT_BUTTON_ANIMATION = "next-button-animation 0.5s ease-out forwards";
 
-// const SELECTED_ANSWER_STYLE = "background-color: #f58442; color: #fff;";
-
 const allQuizes = [];
 let currentQuizIndex = 0;
 let isCorrectAnswer = false;
@@ -50,7 +48,6 @@ function getQuiz(result) {
 
 function createCard(currentQuiz) {
   cardDiv = document.createElement("div");
-  cardDiv.id = "card";
   cardDiv.className = "card";
   document.body.appendChild(cardDiv);
 
@@ -126,7 +123,6 @@ function createNextButton() {
     // Reset isCorrectAnswer back to false.
     isCorrectAnswer = false;
 
-    const cardDiv = document.querySelector("#card");
     cardDiv.style.animation = PAGE_ANIMATION_OUT;
     setTimeout(() => {
       if (currentQuizIndex < allQuizes.length - 1) {
