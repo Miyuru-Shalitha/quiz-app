@@ -1,6 +1,8 @@
 const PAGE_ANIMATION_IN = "page-animation-in 0.51s ease-out";
 const PAGE_ANIMATION_OUT = "page-animation-out 0.5s ease-in forwards";
 
+const SELECTED_ANSWER_STYLE = "background-color: #f58442; color: #fff;";
+
 const allQuizes = [];
 let currentQuizIndex = 2;
 let isCorrectAnswer = false;
@@ -91,6 +93,9 @@ function createAnswerDiv(answersContainerDiv, answer, correctAnswer) {
     } else {
       isCorrectAnswer = false;
     }
+
+    // Change the background color of selected answer div.
+    answerDiv.style = SELECTED_ANSWER_STYLE;
   };
 
   return answerDiv;

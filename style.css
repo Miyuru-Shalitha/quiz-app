@@ -11,17 +11,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-body::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-body {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  overflow: hidden;
 }
 
 #card {
@@ -90,6 +80,7 @@ body {
   height: 2rem;
   border-radius: 1rem;
   border: none;
+  outline: none;
   background-color: #b1fc03;
   color: #009e3a;
   cursor: pointer;
