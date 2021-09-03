@@ -14,7 +14,7 @@ body {
   overflow: hidden;
 }
 
-#card {
+.card {
   max-width: 45rem;
   padding: 1rem;
   overflow: hidden;
@@ -25,10 +25,10 @@ body {
 
 @keyframes page-animation-in {
   from {
-    transform: translateX(150%);
+    transform: translateX(100vw);
   }
   to {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
 }
 
@@ -37,7 +37,7 @@ body {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-250%);
+    transform: translateX(-100vw);
   }
 }
 
@@ -98,6 +98,15 @@ body {
   box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem #aaaaaa;
 }
 
+@keyframes next-button-animation {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(50vh);
+  }
+}
+
 .pop-up {
   position: absolute;
   top: 5%;
@@ -118,27 +127,9 @@ body {
   color: #911919;
 }
 
-/* @keyframes pop-up-animation-in {
-  from {
-    transform: translateY(-250%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes pop-up-animation-out {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-250%);
-  }
-} */
-
 @keyframes pop-up-animation {
   0% {
-    transform: translateY(-250%);
+    transform: translateY(-50vh);
   }
   25% {
     transform: translateY(0);
@@ -147,6 +138,32 @@ body {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-250%);
+    transform: translateY(-50vh);
+  }
+}
+
+.result {
+  font-weight: bold;
+  animation: result-animation 1.5s ease-in-out forwards;
+}
+
+@keyframes result-animation {
+  0% {
+    color: #ff0000;
+    font-size: 0;
+    box-shadow: 0.1rem 0.1rem 1rem 0.3rem #ff0000;
+  }
+  25% {
+    color: #00ff00;
+    box-shadow: 0.1rem 0.1rem 1rem 0.3rem #00ff00;
+  }
+  75% {
+    color: #0000ff;
+    box-shadow: 0.1rem 0.1rem 1rem 0.3rem #0000ff;
+  }
+  100% {
+    color: #14b8b5;
+    font-size: 3rem;
+    box-shadow: 0.1rem 0.1rem 1rem 0.3rem #14b8b5;
   }
 }

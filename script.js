@@ -1,10 +1,11 @@
 const PAGE_ANIMATION_IN = "page-animation-in 0.51s ease-out";
 const PAGE_ANIMATION_OUT = "page-animation-out 0.5s ease-in forwards";
+const NEXT_BUTTON_ANIMATION = "next-button-animation 0.5s ease-out forwards";
 
 const SELECTED_ANSWER_STYLE = "background-color: #f58442; color: #fff;";
 
 const allQuizes = [];
-let currentQuizIndex = 2;
+let currentQuizIndex = 0;
 let isCorrectAnswer = false;
 let currentQuiz = null;
 let score = 0;
@@ -49,6 +50,7 @@ function getQuiz(result) {
 function createCard(currentQuiz) {
   cardDiv = document.createElement("div");
   cardDiv.id = "card";
+  cardDiv.className = "card";
   document.body.appendChild(cardDiv);
 
   createQuizContainerDiv(cardDiv, currentQuiz.question);
@@ -62,7 +64,7 @@ function createQuizContainerDiv(cardDiv, questionText) {
 
   quizSpan = document.createElement("Span");
   quizSpan.id = "quiz";
-  quizSpan.innerHTML = questionText;
+  quizSpan.innerHTML = `(${currentQuizIndex + 1}/10). ${questionText}`;
   quizContainerDiv.appendChild(quizSpan);
 }
 
@@ -135,7 +137,16 @@ function createNextButton() {
 
         cardDiv.style.animation = PAGE_ANIMATION_IN;
       } else {
-        alert(score);
+        // Revmove cardDiv.
+        document.body.removeChild(cardDiv);
+
+        nextButton.style.animation = NEXT_BUTTON_ANIMATION;
+        setTimeout(() => {
+          document.body.removeChild(nextButton);
+        }, 600);
+
+        // Show Score.
+        createResultDiv(score, allQuizes.length);
       }
     }, 600);
   };
@@ -158,6 +169,14 @@ function createPopupDiv(isCorrect) {
   setTimeout(() => {
     document.body.removeChild(popupDiv);
   }, 1500);
+}
+
+function createResultDiv(score, numOfQuizes) {
+  const resultDiv = document.createElement("div");
+  resultDiv.id = "result";
+  resultDiv.className = "card result";
+  resultDiv.innerText = `Your score is ${score} / ${numOfQuizes}`;
+  document.body.appendChild(resultDiv);
 }
 
 ////////////////////////////////////////////////////////////////////
