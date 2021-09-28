@@ -1,4 +1,6 @@
-const PAGE_ANIMATION_IN = "page-animation-in 0.51s ease-out";
+const URL = "https://opentdb.com/api.php?amount=10&category=18&type=multiple";
+
+const PAGE_ANIMATION_IN = "page-animation-in 0.5s ease-out";
 const PAGE_ANIMATION_OUT = "page-animation-out 0.5s ease-in forwards";
 const NEXT_BUTTON_ANIMATION = "next-button-animation 0.5s ease-out forwards";
 
@@ -14,7 +16,7 @@ let answersContainerDiv = null;
 let answerDivs = [];
 
 // Get the json data from the API.
-fetch("https://opentdb.com/api.php?amount=10&category=18&type=multiple")
+fetch(URL)
   .then((res) => res.json())
   .then((data) => {
     data.results.forEach((result) => {
@@ -24,7 +26,7 @@ fetch("https://opentdb.com/api.php?amount=10&category=18&type=multiple")
 
     currentQuiz = allQuizes[currentQuizIndex];
 
-    createCard(currentQuiz);
+    createCardDiv(currentQuiz);
     createNextButton();
   })
   .catch((err) => alert(err.message));
@@ -46,7 +48,7 @@ function getQuiz(result) {
   };
 }
 
-function createCard(currentQuiz) {
+function createCardDiv(currentQuiz) {
   cardDiv = document.createElement("div");
   cardDiv.className = "card";
   document.body.appendChild(cardDiv);
